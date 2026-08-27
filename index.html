@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#8A1538">
+<title>Teacher Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%90%3C/text%3E%3C/svg%3E">
+<script>
+(function () {
+  try {
+    var lang = localStorage.getItem('td_lang') || 'en';
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-content">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">📐</span>
+      <div class="brand-text">
+        <h1 data-i18n="appTitle">Teacher Dashboard</h1>
+        <p class="brand-subtitle" data-i18n="appSubtitle">Grade 5 Math</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span id="todayDate" class="today-date"></span>
+      <button id="langToggle" class="lang-toggle" type="button" aria-label="Switch language">EN / AR</button>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-nav" id="tabNav">
+  <button class="tab-btn active" data-tab="students" type="button">
+    <span aria-hidden="true">🧑‍🎓</span> <span data-i18n="navStudents">Students</span>
+  </button>
+  <button class="tab-btn" data-tab="reminders" type="button">
+    <span aria-hidden="true">⏰</span> <span data-i18n="navReminders">Reminders</span>
+  </button>
+  <button class="tab-btn" data-tab="settings" type="button">
+    <span aria-hidden="true">⚙️</span> <span data-i18n="navSettings">Settings</span>
+  </button>
+</nav>
+
+<main class="app-main">
+
+  <section id="tab-students" class="tab-panel active">
+    <div class="panel-toolbar">
+      <form id="addStudentForm" class="add-student-form">
+        <input type="text" id="newStudentName" data-i18n-placeholder="studentNamePlaceholder" placeholder="Student name" autocomplete="off" required>
+        <button type="submit" class="btn btn-secondary">
+          <span aria-hidden="true">➕</span> <span data-i18n="addStudent">Add Student</span>
+        </button>
+      </form>
+      <button id="saveDataBtn" class="btn btn-primary" type="button">
+        <span aria-hidden="true">💾</span> <span data-i18n="saveDailyData">Save Daily Data</span>
+      </button>
+    </div>
+
+    <div id="studentGrid" class="student-grid" aria-live="polite"></div>
+    <p id="noStudentsMsg" class="empty-state hidden" data-i18n="noStudents">No students yet. Add your first student above to get started.</p>
+  </section>
+
+  <section id="tab-reminders" class="tab-panel">
+    <div class="card reminder-card">
+      <h2 data-i18n="quickReminder">Quick Reminder</h2>
+      <form id="reminderForm">
+        <div class="form-field">
+          <label for="reminderTitle" data-i18n="taskTitle">Task Title</label>
+          <input type="text" id="reminderTitle" data-i18n-placeholder="taskTitlePlaceholder" placeholder="e.g., Bring geometry set" required>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="reminderDate" data-i18n="date">Date</label>
+            <input type="date" id="reminderDate" required>
+          </div>
+          <div class="form-field">
+            <label for="reminderTime" data-i18n="time">Time</label>
+            <input type="time" id="reminderTime">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="reminderSaveBtn">
+          <span aria-hidden="true">📅</span> <span data-i18n="save">Save</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2 data-i18n="reminderListTitle">Recent Reminders</h2>
+      <ul id="reminderList" class="reminder-list"></ul>
+      <p id="noRemindersMsg" class="empty-state hidden" data-i18n="noReminders">No reminders saved yet.</p>
+    </div>
+  </section>
+
+  <section id="tab-settings" class="tab-panel">
+    <div class="card">
+      <h2 data-i18n="settings">Settings</h2>
+      <div class="form-field">
+        <label for="backendUrl" data-i18n="backendUrlLabel">Google Web App URL</label>
+        <input type="url" id="backendUrl" data-i18n-placeholder="backendUrlPlaceholder" placeholder="https://script.google.com/macros/s/.../exec">
+      </div>
+      <button id="saveSettingsBtn" class="btn btn-primary" type="button">
+        <span aria-hidden="true">✔️</span> <span data-i18n="save">Save</span>
+      </button>
+      <p class="hint" data-i18n="backendUrlHint">Paste the Web App URL you get after deploying Code.gs (see README.md). This connects Save Daily Data and Quick Reminder to your Google Sheet and Calendar.</p>
+    </div>
+  </section>
+
+</main>
+
+<div id="statusToast" class="status-toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
