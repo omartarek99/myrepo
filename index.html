@@ -231,6 +231,31 @@
   .card p { margin: 0; font-size: 1.25rem; font-weight: 700; color: var(--maroon-deep); }
   .card .icon { font-size: 1.8rem; line-height: 1; margin-bottom: 8px; }
 
+  /* Parents' notes */
+  .notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .notes li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--white);
+    border-radius: 18px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    border-inline-start: 6px solid var(--gold);
+  }
+  .notes .icon {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--maroon-soft);
+    display: grid;
+    place-items: center;
+    font-size: 1.4rem;
+  }
+  .notes strong { display: block; color: var(--maroon-deep); font-size: 1.1rem; }
+  .notes p { margin: 0; color: var(--muted); }
+
   /* Checklist */
   .checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .checklist li {
@@ -445,6 +470,24 @@
   </section>
 
   <section>
+    <h2 class="section-title"><span class="sym">!</span> إرشادات مهمة لأولياء الأمور</h2>
+    <ul class="notes">
+      <li>
+        <span class="icon" aria-hidden="true">🔄</span>
+        <div><strong>تحديث تطبيق مايكروسوفت تيمز</strong><p>يُرجى تحديث تطبيق Microsoft Teams إلى أحدث إصدار قبل الدخول إلى الجلسة، لتجنّب أي مشكلات تقنية.</p></div>
+      </li>
+      <li>
+        <span class="icon" aria-hidden="true">▶️</span>
+        <div><strong>تشغيل التطبيق قبل الدخول</strong><p>يُرجى تشغيل تطبيق Teams قبل الدخول إلى الجلسة بوقت كافٍ، لضمان تجربة سلسة ودون انقطاع.</p></div>
+      </li>
+      <li>
+        <span class="icon" aria-hidden="true">📚</span>
+        <div><strong>متابعة منصة تعليم قطر يومياً</strong><p>يُرجى الدخول إلى منصة تعليم قطر بشكل يومي للاطلاع على أوراق العمل، والواجبات القادمة، وأي مستجدات.</p></div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
     <h2 class="section-title"><span class="sym">✓</span> هل أنت مستعد؟ جهّز نفسك!</h2>
     <ul class="checklist" id="checklist">
       <li><span class="box"></span><div><strong>أحضر أدواتك المدرسية</strong><span class="desc">دفتر، قلم رصاص، ممحاة، ومسطرة.</span></div></li>
@@ -533,10 +576,10 @@
       const hours = Math.floor(diff / 3600); diff %= 3600;
       const mins = Math.floor(diff / 60);
       const secs = diff % 60;
-      el.d.textContent = toAr(days);
-      el.h.textContent = toAr(hours);
-      el.m.textContent = toAr(mins);
-      el.s.textContent = toAr(secs);
+      el.d.textContent = days;
+      el.h.textContent = hours;
+      el.m.textContent = mins;
+      el.s.textContent = secs;
       setTimeout(tick, 1000);
     }
     tick();
